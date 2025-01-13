@@ -29,6 +29,11 @@ company和product两个基本类，分别描述商品和企业。
 
 接下来，让我们运行起来.我们观察到，仓储一直为0，因为产品全部消耗了，但是，产量一直在增加。这是理想情况，接下来我们要进一步完善系统。
 
+
+
+从这里开始，从0开始思考！！！，不要让思路混乱！！！
+
+
 仍然是people（name，company），company（name，people_list列表，product），product（name，company，material_list字典）三个类。
 现在，
 为people类加入货币：deposit（存款） 和 wage（工资），以及需求：product字典need。
@@ -53,12 +58,24 @@ company：produce和交易时检测storage是否充足，（把劳动力和货�
 people：交易时检测有无劳动力/货币/需求，入职/离职时检测有无公司归属
 
 接下来：
-设置profit calculate方法计算剩余价值率和利润率
+def profit_calculate方法计算剩余价值率和利润率
 
 设置Government类继承company，声明新的商品defense和education（这个不必须）。
 设置Bank和Seller类继承company（不必须），只涉及商品交易（Seller）和货币的交易（bank），和地租有关的farm类先不管。
 
-为company类添加两个float：经纬度，以便计算流通成本。
+为company类添加两个float：经纬度，以便计算流通成本。把两个经纬度，加高度整合进location类。
+
+可以添加city类（name，location，list_company，list_people），把company都放进去，这个类不必须。
 
 
+
+现在，系统还是不会自己运转。我们要为people和company类添加逻辑（重要！）
+people为了出卖劳动力，在need需求高时自动购买商品。生产劳动力需要若干时间单位（根据你自己的模拟需要设置）。
+company类同理，没有原料就买，还有原料就继续生产，逻辑上优先追求利润，压低wage，仓储没劳动力就提高wage。（这里可能有bug，建议我修复前不要搞）
+如果继续生产的话商品不能仓储/交易就停产（仓储容量必须是有限的），如果你认为company没有远见，可设置为过一个时间周期停产，本周期内产品浪费。
+如果company没有原料和货币，自动申请破产注销（破产重整功能还没有做）
+商品升降价：取决于销量
+所有company和people按利润/wage比例向Government购买公共服务。这里可设置级差税率，wage越高交的比例越大（这个在后面会非常有用）
+
+现在一个完整系统成形，基本能跑了。UI先自己实现吧。
 
